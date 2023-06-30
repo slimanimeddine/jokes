@@ -22,7 +22,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-gradient-to-r from-green-400 to-blue-500 text-white">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
