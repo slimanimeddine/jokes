@@ -22,7 +22,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-purple-900 text-white text-xl">
+      <body className="bg-purple-900 text-white text-xl capitalize">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
