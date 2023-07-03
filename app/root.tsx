@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -17,9 +17,20 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
+export const meta: V2_MetaFunction = () => {
+  const description =
+    "A jokes app";
+
+  return [
+    { name: "description", content: description },
+    { name: "twitter:description", content: description },
+    { title: "Jokes app" },
+  ];
+};
+
 function Document({
   children,
-  title = "Jokes app",
+  title
 }: PropsWithChildren<{ title?: string }>) {
   return (
     <html lang="en">
@@ -29,7 +40,9 @@ function Document({
           name="viewport"
           content="width=device-width,initial-scale=1"
         />
-        <title>{title}</title>
+        <meta name="keywords" content="jokes" />
+        <Meta />
+        {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
       </head>
