@@ -1,9 +1,10 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { redirect, json } from "@remix-run/node";
-import { Form, useActionData, isRouteErrorResponse, useRouteError, Link } from "@remix-run/react";
+import { useNavigation, Form, useActionData, isRouteErrorResponse, useRouteError, Link } from "@remix-run/react";
 import { badRequest } from "~/utils/request.server";
 import { requireUserId, getUserId } from "~/utils/session.server";
 import { db } from "~/utils/db.server";
+import { JokeDisplay } from "~/components/joke";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
@@ -63,6 +64,26 @@ export const action = async ({ request }: ActionArgs) => {
 
 export default function NewJokeRoute() {
   const actionData = useActionData<typeof action>();
+  const navigation = useNavigation();
+
+  if (navigation.formData) {
+    const content = navigation.formData.get("content");
+    const name = navigation.formData.get("name");
+    if (
+      typeof content === "string" &&
+      typeof name === "string" &&
+      !validateJokeContent(content) &&
+      !validateJokeName(name)
+    ) {
+      return (
+        <JokeDisplay
+          canDelete={false}
+          isOwner={true}
+          joke={{ name, content }}
+        />
+      );
+    }
+  }
 
   return (
     <div>
