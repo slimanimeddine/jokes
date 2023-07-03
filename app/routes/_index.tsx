@@ -10,11 +10,11 @@ export const meta: V2_MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="p-16">
+    <div className="h-screen flex flex-col gap-4 items-center justify-center">
       <h1 className="uppercase text-4xl font-extrabold">
         This is a jokes app
       </h1>
-      <Link className="hover:ml-2 text-yellow-500" to='/jokes'>jokes</Link>
+      <Link className="capitalize rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold" to='/jokes'>jokes</Link>
     </div>
   );
 }

@@ -6,7 +6,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useRouteError
+  useRouteError,
+  isRouteErrorResponse
 } from "@remix-run/react";
 import type { PropsWithChildren } from "react";
 
@@ -18,7 +19,7 @@ export const links: LinksFunction = () => [
 
 function Document({
   children,
-  title = "Remix: So great, it's funny!",
+  title = "Jokes app",
 }: PropsWithChildren<{ title?: string }>) {
   return (
     <html lang="en">
@@ -53,13 +54,27 @@ export default function App() {
 export function ErrorBoundary() {
   const error = useRouteError();
 
+  if (isRouteErrorResponse(error)) {
+    return (
+      <Document
+        title={`${error.status} ${error.statusText}`}
+      >
+        <div className="error-container">
+          <h1>
+            {error.status} {error.statusText}
+          </h1>
+        </div>
+      </Document>
+    );
+  }
+
   const errorMessage =
     error instanceof Error
       ? error.message
       : "Unknown error";
   return (
     <Document title="Uh-oh!">
-      <div className="bg-red-600 text-white">
+      <div className="bg-red-700 text-white p-6 rounded-xl">
         <h1 className="uppercase text-4xl font-extrabold">App Error</h1>
         <pre>{errorMessage}</pre>
       </div>

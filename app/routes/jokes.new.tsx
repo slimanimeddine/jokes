@@ -1,9 +1,17 @@
-import type { ActionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-import { useActionData } from "@remix-run/react";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { redirect, json } from "@remix-run/node";
+import { useActionData, isRouteErrorResponse, useRouteError, Link } from "@remix-run/react";
 import { badRequest } from "~/utils/request.server";
-import { requireUserId } from "~/utils/session.server";
+import { requireUserId, getUserId } from "~/utils/session.server";
 import { db } from "~/utils/db.server";
+
+export const loader = async ({ request }: LoaderArgs) => {
+  const userId = await getUserId(request);
+  if (!userId) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
+  return json({});
+};
 
 function validateJokeContent(content: string) {
   if (content.length < 10) {
@@ -47,8 +55,8 @@ export const action = async ({ request }: ActionArgs) => {
     });
   }
 
-  const joke = await db.joke.create({ 
-    data: { ...fields, jokesterId: userId }, 
+  const joke = await db.joke.create({
+    data: { ...fields, jokesterId: userId },
   })
   return redirect(`/jokes/${joke.id}`)
 }
@@ -130,8 +138,18 @@ export default function NewJokeRoute() {
 }
 
 export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error) && error.status === 401) {
+    return (
+      <div className="bg-red-700 text-white p-6 rounded-xl">
+        <p>You must be logged in to create a joke.</p>
+        <Link className="text-yellow-500 hover:text-yellow-600" to="/login">Login</Link>
+      </div>
+    );
+  }
   return (
-    <div className="bg-red-600 text-white">
+    <div className="bg-red-700 text-white p-6 rounded-xl">
       Something unexpected went wrong. Sorry about that.
     </div>
   );

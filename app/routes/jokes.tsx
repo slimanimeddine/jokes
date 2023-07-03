@@ -33,7 +33,7 @@ export default function JokesRoute() {
             </form>
           </div>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link className="rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold" to="/login">Login</Link>
         )}
       </header>
       <div className="flex justify-start gap-8 pt-20 px-20">

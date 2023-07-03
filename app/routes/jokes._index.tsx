@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, isRouteErrorResponse, useRouteError, Link } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
@@ -11,8 +11,10 @@ export const loader = async ({ params }: LoaderArgs) => {
     take: 1,
   });
 
-  if(!randomJoke) {
-    throw new Error('joke not found')
+  if (!randomJoke) {
+    throw new Response("No random joke found", {
+      status: 404,
+    });
   }
 
   return json({ randomJoke })
@@ -31,8 +33,17 @@ export default function JokesIndexRoute() {
 }
 
 export function ErrorBoundary() {
+  const error = useRouteError();
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    return (
+      <div className="bg-red-700 text-white p-6 rounded-xl">
+        <p>There are no jokes to display.</p>
+        <Link to="new">Add your own</Link>
+      </div>
+    );
+  }
   return (
-    <div className="bg-red-600 text-white">
+    <div className="bg-red-700 text-white p-6 rounded-xl">
       I did a whoopsies.
     </div>
   );
