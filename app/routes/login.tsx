@@ -2,7 +2,7 @@ import type {
     ActionArgs,
     V2_MetaFunction
 } from "@remix-run/node";
-import { Link, useSearchParams, useActionData } from "@remix-run/react";
+import { Link, useSearchParams, useActionData, Form } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 import { badRequest } from "~/utils/request.server";
 import { login, createUserSession, register } from "~/utils/session.server";
@@ -121,7 +121,7 @@ export default function Login() {
     return (
         <div className="h-screen flex items-center justify-center">
             <div className="bg-white text-purple-900 gap-4 rounded-md">
-                <form method="post" className="flex flex-col items-center gap-4 p-10 shadow-xl">
+                <Form method="post" className="flex flex-col items-center gap-4 p-10 shadow-xl">
                     <h1 className="uppercase text-4xl font-extrabold">login</h1>
                     <input
                         type="hidden"
@@ -227,7 +227,7 @@ export default function Login() {
                             <Link className="hover:text-purple-950 hover:mb-4" to="/jokes">Jokes</Link>
                         </li>
                     </ul>
-                </form>
+                </Form>
             </div>
         </div>
     )

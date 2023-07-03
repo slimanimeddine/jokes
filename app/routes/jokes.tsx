@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 import { getUser } from "~/utils/session.server";
 
@@ -26,11 +26,11 @@ export default function JokesRoute() {
         {data.user ? (
           <div className="flex justify-between items-center gap-4">
             <span>{`Hi ${data.user.username}`}</span>
-            <form action="/logout" method="post">
+            <Form action="/logout" method="post">
               <button type="submit" className="rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold">
                 Logout
               </button>
-            </form>
+            </Form>
           </div>
         ) : (
           <Link className="rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold" to="/login">Login</Link>

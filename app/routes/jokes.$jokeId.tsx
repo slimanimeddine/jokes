@@ -1,6 +1,6 @@
 import type { LoaderArgs, ActionArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData, useParams, isRouteErrorResponse, useRouteError } from "@remix-run/react";
+import { Form, useLoaderData, useParams, isRouteErrorResponse, useRouteError } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 import { requireUserId, getUserId } from "~/utils/session.server";
 
@@ -79,7 +79,7 @@ export default function JokeRoute() {
         {data.joke.content}
       </p>
       {data.isOwner ? (
-        <form method="post">
+        <Form method="post">
           <button
             className="button"
             name="intent"
@@ -88,7 +88,7 @@ export default function JokeRoute() {
           >
             Delete
           </button>
-        </form>
+        </Form>
       ) : null}
     </div>
   );
