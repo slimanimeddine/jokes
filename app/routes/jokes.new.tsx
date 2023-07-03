@@ -2,6 +2,7 @@ import type { ActionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
 import { badRequest } from "~/utils/request.server";
+import { requireUserId } from "~/utils/session.server";
 import { db } from "~/utils/db.server";
 
 function validateJokeContent(content: string) {
@@ -17,6 +18,7 @@ function validateJokeName(name: string) {
 }
 
 export const action = async ({ request }: ActionArgs) => {
+  const userId = await requireUserId(request);
   const form = await request.formData()
   const name = form.get('name')
   const content = form.get('content')
@@ -45,7 +47,9 @@ export const action = async ({ request }: ActionArgs) => {
     });
   }
 
-  const joke = await db.joke.create({ data: fields })
+  const joke = await db.joke.create({ 
+    data: { ...fields, jokesterId: userId }, 
+  })
   return redirect(`/jokes/${joke.id}`)
 }
 
@@ -74,7 +78,7 @@ export default function NewJokeRoute() {
           />
           {actionData?.fieldErrors?.name ? (
             <p
-              className="text-red-600 text-base"
+              className="text-red-600 text-xs"
               id="name-error"
               role="alert"
             >
@@ -99,7 +103,7 @@ export default function NewJokeRoute() {
           />
           {actionData?.fieldErrors?.content ? (
             <p
-              className="text-red-600 text-base"
+              className="text-red-600 text-xs"
               id="content-error"
               role="alert"
             >
@@ -116,7 +120,7 @@ export default function NewJokeRoute() {
               {actionData.formError}
             </p>
           ) : null}
-          <button type="submit" className="rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold">
+          <button type="submit" className="w-full rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold">
             Add
           </button>
         </div>
