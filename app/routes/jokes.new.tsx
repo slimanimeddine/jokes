@@ -92,7 +92,7 @@ export default function NewJokeRoute() {
         <div className="flex flex-col">
           <label>Name:</label>
           <input
-            className="bg-purple-700 border-2 border-purple-400 rounded-md "
+            className="bg-indigo-700 border-2 border-indigo-400 rounded-md "
             type="text"
             name="name"
             defaultValue={actionData?.fields?.name}
@@ -118,7 +118,7 @@ export default function NewJokeRoute() {
         <div className="flex flex-col">
           <label>Content:</label>
           <textarea
-            className="bg-purple-700 border-2 border-purple-400 rounded-md aria-invalid:border-red-600"
+            className="bg-indigo-700 border-2 border-indigo-400 rounded-md aria-invalid:border-red-600"
             name="content"
             defaultValue={actionData?.fields?.content}
             aria-invalid={Boolean(
@@ -149,7 +149,7 @@ export default function NewJokeRoute() {
               {actionData.formError}
             </p>
           ) : null}
-          <button type="submit" className="w-full rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold">
+          <button type="submit" className="w-full rounded-md bg-amber-400 hover:bg-amber-500 p-2 text-center text-indigo-900 text-2xl font-extrabold">
             Add
           </button>
         </div>
@@ -165,7 +165,7 @@ export function ErrorBoundary() {
     return (
       <div className="bg-red-700 text-white p-6 rounded-xl">
         <p>You must be logged in to create a joke.</p>
-        <Link className="text-yellow-500 hover:text-yellow-600" to="/login">Login</Link>
+        <Link className="text-amber-500 hover:text-amber-600" to="/login">Login</Link>
       </div>
     );
   }

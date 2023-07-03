@@ -120,7 +120,7 @@ export default function Login() {
     const [searchParams] = useSearchParams();
     return (
         <div className="h-screen flex items-center justify-center">
-            <div className="bg-white text-purple-900 gap-4 rounded-md">
+            <div className="bg-white text-indigo-900 gap-4 rounded-md">
                 <Form method="post" className="flex flex-col items-center gap-4 p-10 shadow-xl">
                     <h1 className="uppercase text-4xl font-extrabold">login</h1>
                     <input
@@ -160,7 +160,7 @@ export default function Login() {
                         <label className="text-left">username</label>
                         <input
                             name="username"
-                            className="bg-purple-300 border-2 border-purple-400 rounded-md focus:outline-none focus:border-purple-600 focus:ring-purple-600"
+                            className="bg-indigo-300 border-2 border-indigo-400 rounded-md focus:outline-none focus:border-indigo-600 focus:ring-indigo-600"
                             type="text"
                             defaultValue={actionData?.fields?.username}
                             aria-invalid={Boolean(
@@ -186,7 +186,7 @@ export default function Login() {
                         <label className="text-left">password</label>
                         <input
                             name="password"
-                            className="bg-purple-300 border-2 border-purple-400 rounded-md focus:outline-none focus:border-purple-600 focus:ring-purple-600"
+                            className="bg-indigo-300 border-2 border-indigo-400 rounded-md focus:outline-none focus:border-indigo-600 focus:ring-indigo-600"
                             type="password"
                             defaultValue={actionData?.fields?.password}
                             aria-invalid={Boolean(
@@ -218,13 +218,13 @@ export default function Login() {
                             </p>
                         ) : null}
                     </div>
-                    <button className="w-full capitalize rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold">submit</button>
+                    <button className="w-full capitalize rounded-md bg-amber-400 hover:bg-amber-500 p-2 text-center text-indigo-900 text-2xl font-extrabold">submit</button>
                     <ul className="flex flex-row items-center justify-between gap-4 text-sm">
-                        <li className="p-2 hover:bg-purple-300 hover:p-2 hover:rounded-xl">
-                            <Link className="hover:text-purple-950" to="/">Home</Link>
+                        <li className="p-2 hover:bg-indigo-300 hover:p-2 hover:rounded-xl">
+                            <Link className="hover:text-indigo-950" to="/">Home</Link>
                         </li>
-                        <li className="p-2 hover:hover:bg-purple-300 hover:p-2 hover:rounded-xl">
-                            <Link className="hover:text-purple-950 hover:mb-4" to="/jokes">Jokes</Link>
+                        <li className="p-2 hover:hover:bg-indigo-300 hover:p-2 hover:rounded-xl">
+                            <Link className="hover:text-indigo-950 hover:mb-4" to="/jokes">Jokes</Link>
                         </li>
                     </ul>
                 </Form>

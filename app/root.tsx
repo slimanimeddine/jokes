@@ -46,7 +46,7 @@ function Document({
         <Meta />
         <Links />
       </head>
-      <body className="bg-purple-900 capitalize text-white">
+      <body className="bg-indigo-900 capitalize text-white">
         {children}
         <ScrollRestoration />
         <Scripts />

@@ -14,7 +14,7 @@ export default function Index() {
       <h1 className="uppercase text-4xl font-extrabold">
         This is a jokes app
       </h1>
-      <Link className="capitalize rounded-md bg-yellow-400 hover:bg-yellow-500 p-2 text-center text-purple-900 text-2xl font-extrabold" to='/jokes'>jokes</Link>
+      <Link className="capitalize rounded-md bg-amber-400 hover:bg-amber-500 p-2 text-center text-indigo-900 text-2xl font-extrabold" to='/jokes'>jokes</Link>
     </div>
   );
 }
