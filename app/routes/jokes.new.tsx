@@ -128,3 +128,11 @@ export default function NewJokeRoute() {
     </div>
   );
 }
+
+export function ErrorBoundary() {
+  return (
+    <div className="bg-red-600 text-white">
+      Something unexpected went wrong. Sorry about that.
+    </div>
+  );
+}

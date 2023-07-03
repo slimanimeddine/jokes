@@ -29,3 +29,11 @@ export default function JokesIndexRoute() {
     </div>
   );
 }
+
+export function ErrorBoundary() {
+  return (
+    <div className="bg-red-600 text-white">
+      I did a whoopsies.
+    </div>
+  );
+}

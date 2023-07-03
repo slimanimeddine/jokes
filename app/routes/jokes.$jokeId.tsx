@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useParams } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
@@ -25,6 +25,16 @@ export default function JokeRoute() {
       <p>
         {data.joke.content}
       </p>
+    </div>
+  );
+}
+
+export function ErrorBoundary() {
+  const { jokeId } = useParams();
+  return (
+    <div className="bg-red-600 text-white">
+      There was an error loading joke by the id "${jokeId}".
+      Sorry.
     </div>
   );
 }
