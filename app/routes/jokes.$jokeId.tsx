@@ -1,6 +1,6 @@
 import type { LoaderArgs, ActionArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData, useParams, isRouteErrorResponse, useRouteError } from "@remix-run/react";
+import { useLoaderData, useParams, isRouteErrorResponse, useRouteError, Outlet, useLocation } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 import { requireUserId, getUserId } from "~/utils/session.server";
 import { JokeDisplay } from "~/components/joke";
@@ -10,9 +10,9 @@ export const meta: V2_MetaFunction<typeof loader> = ({
 }) => {
   const { description, title } = data
     ? {
-        description: `Enjoy the "${data.joke.name}" joke`,
-        title: `"${data.joke.name}" joke`,
-      }
+      description: `Enjoy the "${data.joke.name}" joke`,
+      title: `"${data.joke.name}" joke`,
+    }
     : { description: "No joke found", title: "No joke" };
 
   return [
@@ -26,7 +26,7 @@ export const action = async ({
   request,
 }: ActionArgs) => {
   const form = await request.formData();
-  if (form.get("intent") !== "delete") {
+  if (form.get("intent") === "delete") {
     throw new Response(
       `The intent ${form.get("intent")} is not supported`,
       { status: 400 }
@@ -73,8 +73,16 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
 export default function JokeRoute() {
   const data = useLoaderData<typeof loader>()
+  const location = useLocation()
+  console.log(location.pathname.split("/").pop() === 'edit')
   return (
-    <JokeDisplay isOwner={data.isOwner} joke={data.joke} />
+    <>
+      {
+        location.pathname.split("/").pop() === 'edit' ?
+          <Outlet /> :
+          <JokeDisplay isOwner={data.isOwner} joke={data.joke} />
+      }
+    </>
   );
 }
 
