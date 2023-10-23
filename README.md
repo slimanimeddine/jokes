@@ -1,7 +1,5 @@
 # Jokes app
 
-[See it live here: https://jokes-livid.vercel.app/](https://jokes-livid.vercel.app/)
-
 ## What is this?
 
 A project I built using [Remix](https://remix.run/)
